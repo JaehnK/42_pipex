@@ -20,4 +20,9 @@
 # include <errno.h>
 # include <stdio.h>
 # include "./libft/libft.h"
+
+void	ft_error(int num, char *errm);
+char	**ft_parse_path(char **envp);
+void	ft_pipe(char **argv);
+
 #endif

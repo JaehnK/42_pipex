@@ -6,14 +6,13 @@
 /*   By: jaehukim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:34:23 by jaehukim          #+#    #+#             */
-/*   Updated: 2024/06/04 20:46:08 by jaehukim         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:40:20 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+# define BUFFER_SIZE 1024
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
@@ -82,5 +81,4 @@ int		print_dec(va_list ap);
 int		print_udec(va_list ap);
 int		print_hex(va_list ap, int isupper);
 
-#endif
 #endif

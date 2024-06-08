@@ -21,7 +21,10 @@ SUBDIR = ./libft
 SRCS_DIR = srcs
 OBJS_DIR = objs
 
-SRCS = px_main.c
+SRCS =	px_main.c \
+		px_parsepath.c \
+		px_pipe.c 
+
 OBJS = $(SRCS:%.c=%.o)
 
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))

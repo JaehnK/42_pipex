@@ -6,7 +6,7 @@
 /*   By: jaehukim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:07:59 by jaehukim          #+#    #+#             */
-/*   Updated: 2024/03/26 15:58:14 by jaehukim         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:38:51 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -69,4 +69,3 @@ char	*ft_gnl_strdup(char *s, int extra_size)
 		free(s);
 	return (res);
 }
-
