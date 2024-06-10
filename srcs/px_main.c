@@ -15,10 +15,10 @@ void	ft_error(int num, char *errm)
 {
 	errno = num;
 	perror(errm);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
-int	ft_check_accessible(char **argv)
+void	ft_check_accessible(char **argv)
 {
 	int	f1;
 	int	f2;
@@ -29,19 +29,24 @@ int	ft_check_accessible(char **argv)
 		ft_error(ENOENT, argv[1]);
 	if (f2 == -1)
 		ft_error(ENOENT, argv[4]);
-	return (1);
+	return ;
+}
+
+void	ft_check_argc(int argc)
+{
+	if (argc == 5)
+		return ;
+	else if (argc != 5)
+		ft_error(EINVAL, ft_itoa(argc));
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**paths;
-	int		input_fd;
-	int		fd[2];
+	t_vars	*vars;
 
-	if (argc != 5)
-		ft_error(EINVAL, "five arguments required");
-	paths = ft_parse_path(envp);
+	ft_check_argc(argc);
 	ft_check_accessible(argv);
-	ft_pipe(argv);
+	vars = ft_parse(argc, argv, envp);
+	ft_pipex(vars);
 	return (0);
 }

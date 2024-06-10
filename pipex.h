@@ -21,8 +21,21 @@
 # include <stdio.h>
 # include "./libft/libft.h"
 
+typedef struct	s_vars
+{
+	char	**envp;
+	char	**argv;
+	char	**paths;
+}	t_vars;
+
+typedef	struct	s_chld
+{
+	int		fd[2];
+	pid_t	*pid;
+}	t_chld;
+
 void	ft_error(int num, char *errm);
-char	**ft_parse_path(char **envp);
-void	ft_pipe(char **argv);
+t_vars	*ft_parse(int argc, char **argv, char **envp);
+void	ft_pipex(t_vars *vars);
 
 #endif

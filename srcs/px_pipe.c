@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../pipex.h"
 
-int	ft_redirection_input(char **argv)
+int	ft_rdr_inpt(char **argv)
 {
 	int	input_fd;
 
@@ -20,45 +20,62 @@ int	ft_redirection_input(char **argv)
 	return (input_fd);
 }
 
-void	ft_pipe(char **argv)
+t_chld	*ft_crt_chld(void)
 {
-	pid_t	pid;
-	ssize_t	byts;
 	int		fd[2];
-	int		i;
-	int		status;
-	int		input_fd;
-	char	buf[30];
+	pid_t	pid;
+	t_chld	*chld;
 
-	if (pipe(fd) < 0)
-		ft_error(errno, "pipe");
+	if (pipe(fd) == -1)
+		ft_error(EPIPE, "PIPE");
 	pid = fork();
 	if (pid < 0)
 		ft_error(ECHILD, "FORK");
-	ft_printf("BEFORE FORK\n");
-	
-	if (pid > 0)
+	chld = (t_chld *) malloc(sizeof(chld) * 1);
+	if (!chld)
+		ft_error(ENOMEM, "chld");
+	chld->pid = &pid;
+	chld->fd[0] = fd[0];
+	chld->fd[1] = fd[1];
+	return (chld);
+}
+
+void	ft_rd2wrt(int ifd, int ofd)
+{
+	char	buf[30];
+	ssize_t	byts;
+
+	byts = read(ifd, buf, sizeof(buf));
+	while (byts > 0)
 	{
-		printf("PARENT GO\n");
-		close(fd[0]);
-		input_fd = ft_redirection_input(argv);
-		while ((byts = read(input_fd, buf, sizeof(buf))) > 0)
-			write(fd[1], buf, byts);
-		close(input_fd);
-		close(fd[1]);
-		waitpid(pid, &status, 0);
-		ft_printf("parent exit\n");
+		ft_printf("%s", buf);
+		write(ofd, buf, byts);
+		byts = read(ifd, buf, sizeof(buf));
+	}
+	close(ifd);
+	close(ofd);
+	ft_printf("rd2wrt end\n");
+	return ;
+}
+
+void	ft_pipex(t_vars *vars)
+{
+	int		status; 
+	t_chld	*first;
+
+	first = ft_crt_chld();
+	if (first->pid > 0)
+	{
+		close(first->fd[0]);
+		ft_rd2wrt(ft_rdr_inpt(vars->argv), first->fd[1]);
+		waitpid(*first->pid, &status, 0);
 	}
 	else
 	{
-		ft_printf("CHILD GO\n");
-		dup2(fd[0], 3);
-		write(1, "WRITEFINISHED\n", 15);
-		close(fd[1]);
-		close(fd[0]);
+		dup2(first->fd[0], 3);
+		ft_rd2wrt(3, STDOUT_FILENO);
 
-
-		exit(EXIT_SUCCESS);
+		exit(1);
 	}
-	
+
 }

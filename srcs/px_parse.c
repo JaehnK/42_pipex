@@ -28,7 +28,25 @@ static char	*ft_left(char *line, int size)
 	return (dst);
 }
 
-char	**ft_parse_path(char **envp)
+static char **ft_parse_argv(int argc, char **argv)
+{
+	int		idx;	
+	char	**new_argv;
+	
+	idx = 0;
+	new_argv = (char **) malloc(sizeof(char *) * argc);
+	if (!new_argv)
+		ft_error(errno, "new_argv");
+	while (idx < argc)
+	{
+		new_argv[idx] = argv[idx];
+		idx++;
+	}
+	new_argv[idx] = NULL;
+	return (new_argv);
+}
+
+static char	**ft_parse_path(char **envp)
 {
 	int		i;
 	char	*first;
@@ -40,4 +58,17 @@ char	**ft_parse_path(char **envp)
 	paths = ft_split(envp[i], ':');
 	paths[0] = ft_left(paths[0], 5);
 	return (paths);
+}
+
+t_vars	*ft_parse(int argc, char **argv, char **envp)
+{
+	t_vars	*vars;
+
+	vars = (t_vars *) malloc(sizeof(*vars) * 1);
+	if (!vars)
+		ft_error(errno, "vars");
+	vars->paths = ft_parse_path(envp);
+	vars->argv = ft_parse_argv(argc, argv);
+	vars->envp = envp;
+	return (vars);
 }

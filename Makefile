@@ -22,7 +22,7 @@ SRCS_DIR = srcs
 OBJS_DIR = objs
 
 SRCS =	px_main.c \
-		px_parsepath.c \
+		px_parse.c \
 		px_pipe.c 
 
 OBJS = $(SRCS:%.c=%.o)
@@ -33,23 +33,22 @@ OBJS := $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 all : $(NAME)
  
 $(NAME): $(OBJS) $(LIB)
-
 	@$(CC) $(CFLAGS) $(OBJS) -L$(SUBDIR) -lft -o $(NAME)
 
 $(LIB):
-	$(MAKE) -C $(SUBDIR)
+	@$(MAKE) -C $(SUBDIR)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADR)
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -O3 -c $< -o $@
+	@$(CC) $(CFLAGS) -O3 -c $< -o $@
 
-cclean:
+clean:
 	@$(MAKE) clean -C $(SUBDIR)
-	rm -rf $(OBJS_DIR)/*.o
+	@rm -rf $(OBJS_DIR)/*.o
 
 fclean: clean
 	@$(MAKE) fclean -C $(SUBDIR)
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 		
 re: fclean all
 
