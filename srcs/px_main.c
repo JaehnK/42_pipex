@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/04 20:16:16 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../pipex.h"
+#include "../includes/pipex.h"
 
 void	ft_error(int num, char *errm)
 {
@@ -45,8 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	t_vars	*vars;
 
 	ft_check_argc(argc);
-	ft_check_accessible(argv);
 	vars = ft_parse(argc, argv, envp);
-	ft_pipex(vars);
+	if (pid == )
 	return (0);
 }

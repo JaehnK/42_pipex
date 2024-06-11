@@ -9,7 +9,8 @@
 /*   Updated: 2024/06/08 17:30:39 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../pipex.h"
+#include "../includes/pipex.h"
+
 
 int	ft_rdr_inpt(char **argv)
 {
@@ -58,6 +59,11 @@ void	ft_rd2wrt(int ifd, int ofd)
 	return ;
 }
 
+void	ft_exe(t_vars *vars, int sig)
+{
+	execve(vars->argv[2 + sig], vars->argv, vars->envp);
+}
+
 void	ft_pipex(t_vars *vars)
 {
 	int		status; 
@@ -73,8 +79,6 @@ void	ft_pipex(t_vars *vars)
 	else
 	{
 		dup2(first->fd[0], 3);
-		ft_rd2wrt(3, STDOUT_FILENO);
-
 		exit(1);
 	}
 

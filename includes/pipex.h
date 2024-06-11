@@ -26,6 +26,8 @@ typedef struct	s_vars
 	char	**envp;
 	char	**argv;
 	char	**paths;
+	int		argc;
+	int		idx;
 }	t_vars;
 
 typedef	struct	s_chld

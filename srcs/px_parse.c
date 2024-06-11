@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/08 16:31:08 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../pipex.h"
+#include "../includes/pipex.h"
 
 static char	*ft_left(char *line, int size)
 {
@@ -70,5 +70,7 @@ t_vars	*ft_parse(int argc, char **argv, char **envp)
 	vars->paths = ft_parse_path(envp);
 	vars->argv = ft_parse_argv(argc, argv);
 	vars->envp = envp;
+	vars->argc = argc;
+	vars->idx = 0;
 	return (vars);
 }
