@@ -18,20 +18,6 @@ void	ft_error(int num, char *errm)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_check_accessible(char **argv)
-{
-	int	f1;
-	int	f2;
-
-	f1 = access(argv[1], R_OK);
-	f2 = access(argv[4], W_OK);
-	if (f1 == -1)
-		ft_error(ENOENT, argv[1]);
-	if (f2 == -1)
-		ft_error(ENOENT, argv[4]);
-	return ;
-}
-
 void	ft_check_argc(int argc)
 {
 	if (argc == 5)
@@ -43,9 +29,11 @@ void	ft_check_argc(int argc)
 int	main(int argc, char **argv, char **envp)
 {
 	t_vars	*vars;
+	pid_t	pid;
 
 	ft_check_argc(argc);
 	vars = ft_parse(argc, argv, envp);
-	if (pid == )
-	return (0);
+	//ft_pipex(vars);
+	ft_execve(vars);
+	exit (0);
 }

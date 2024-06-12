@@ -39,7 +39,7 @@ static char **ft_parse_argv(int argc, char **argv)
 		ft_error(errno, "new_argv");
 	while (idx < argc)
 	{
-		new_argv[idx] = argv[idx];
+		new_argv[idx] = ft_strdup(argv[idx]);
 		idx++;
 	}
 	new_argv[idx] = NULL;
@@ -49,14 +49,17 @@ static char **ft_parse_argv(int argc, char **argv)
 static char	**ft_parse_path(char **envp)
 {
 	int		i;
+	char	*tmp;
 	char	*first;
 	char 	**paths;
 	
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", ft_strlen("PATH=")))
 		i++;
-	paths = ft_split(envp[i], ':');
+	tmp = ft_strdup(envp[i]);
+	paths = ft_split(tmp, ':');
 	paths[0] = ft_left(paths[0], 5);
+	free(tmp);
 	return (paths);
 }
 
@@ -64,7 +67,7 @@ t_vars	*ft_parse(int argc, char **argv, char **envp)
 {
 	t_vars	*vars;
 
-	vars = (t_vars *) malloc(sizeof(*vars) * 1);
+	vars = (t_vars *) malloc(sizeof(t_vars) * 1);
 	if (!vars)
 		ft_error(errno, "vars");
 	vars->paths = ft_parse_path(envp);

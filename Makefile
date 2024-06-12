@@ -6,14 +6,14 @@
 #    By: jaehukim <jaehukim42@student.42gyeong      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 20:20:49 by jaehukim          #+#    #+#              #
-#    Updated: 2024/06/07 17:01:52 by jaehukim         ###   ########.fr        #
+#    Updated: 2024/06/12 20:45:36 by jaehukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 HEADR = pipex.h
 CC = cc
-CFLAGS = -I./libft -g
+CFLAGS = -I./libft -g 
 
 LIB = ./libft/libft.a
 SUBDIR = ./libft
@@ -23,17 +23,22 @@ OBJS_DIR = objs
 
 SRCS =	px_main.c \
 		px_parse.c \
-		px_pipe.c 
-
-OBJS = $(SRCS:%.c=%.o)
+		px_pipe.c \
+		px_exe.c
 
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS := $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
+OBJS = $(SRCS:%.c=%.o)
+
+
+
 all : $(NAME)
  
 $(NAME): $(OBJS) $(LIB)
+
 	@$(CC) $(CFLAGS) $(OBJS) -L$(SUBDIR) -lft -o $(NAME)
+
 
 $(LIB):
 	@$(MAKE) -C $(SUBDIR)

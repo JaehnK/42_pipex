@@ -19,7 +19,7 @@
 # include <string.h>
 # include <errno.h>
 # include <stdio.h>
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 
 typedef struct	s_vars
 {
@@ -39,5 +39,6 @@ typedef	struct	s_chld
 void	ft_error(int num, char *errm);
 t_vars	*ft_parse(int argc, char **argv, char **envp);
 void	ft_pipex(t_vars *vars);
+void	 ft_execve(t_vars *vars);
 
 #endif

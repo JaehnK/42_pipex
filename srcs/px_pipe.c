@@ -32,7 +32,7 @@ t_chld	*ft_crt_chld(void)
 	pid = fork();
 	if (pid < 0)
 		ft_error(ECHILD, "FORK");
-	chld = (t_chld *) malloc(sizeof(chld) * 1);
+	chld = (t_chld *) malloc(sizeof(t_chld) * 1);
 	if (!chld)
 		ft_error(ENOMEM, "chld");
 	chld->pid = &pid;
@@ -61,7 +61,7 @@ void	ft_rd2wrt(int ifd, int ofd)
 
 void	ft_exe(t_vars *vars, int sig)
 {
-	execve(vars->argv[2 + sig], vars->argv, vars->envp);
+	
 }
 
 void	ft_pipex(t_vars *vars)
@@ -69,11 +69,11 @@ void	ft_pipex(t_vars *vars)
 	int		status; 
 	t_chld	*first;
 
-	first = ft_crt_chld();
 	if (first->pid > 0)
 	{
 		close(first->fd[0]);
-		ft_rd2wrt(ft_rdr_inpt(vars->argv), first->fd[1]);
+		pid_t pid = fork();
+
 		waitpid(*first->pid, &status, 0);
 	}
 	else
