@@ -39,6 +39,6 @@ typedef	struct	s_chld
 void	ft_error(int num, char *errm);
 t_vars	*ft_parse(int argc, char **argv, char **envp);
 void	ft_pipex(t_vars *vars);
-void	 ft_execve(t_vars *vars);
+void	 ft_execve(t_vars *vars, int idx);
 
 #endif

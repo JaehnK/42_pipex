@@ -34,6 +34,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_check_argc(argc);
 	vars = ft_parse(argc, argv, envp);
 	//ft_pipex(vars);
-	ft_execve(vars);
+	ft_execve(vars, 2);
 	exit (0);
 }

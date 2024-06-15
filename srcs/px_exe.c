@@ -26,12 +26,13 @@ char	*ft_accessible_cmd(t_vars *vars, int cnt)
 {
 	int		j;
 	char	*cmd;
+	char	*argv[3];
 
 	if (vars->argv[cnt] == NULL)
 		ft_error(22, "cnt");
 	if (vars->argv[cnt][0] == '/')
 	{
-		// "재훈 //// 이거 파싱해야됨"
+		cmd = ft_dbl_slash(&vars->argv[cnt]);
 		if (access(&vars->argv[cnt][0], X_OK) == 0)
 			return (ft_strdup(&vars->argv[cnt][0]));
 		else
@@ -51,11 +52,7 @@ char	*ft_accessible_cmd(t_vars *vars, int cnt)
 }
 
 
-void	 ft_execve(t_vars *vars)
+void	 ft_execve(t_vars *vars, int idx)
 {
-	int i;
-
-	i = 2;
-	while (i < vars->argc - 1)
-		printf("%s\n", ft_accessible_cmd(vars, i++));
+	char **sibal = ft_split(vars->argv[idx], ' ');
 }
