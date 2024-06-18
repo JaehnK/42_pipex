@@ -52,8 +52,8 @@ void	ft_pipex(t_vars *vars)
 	infile = open(vars->argv[1], O_RDONLY);
 	outfile = open(vars->argv[vars->argc - 1], \
 		O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (infile < 0 || outfile < 0)
-		ft_error(errno, "Check Infile or Outfile");
+	if (outfile < 0)
+		ft_error(errno, "Check Outfile");
 	vars->infile_fd = infile;
 	vars->outfile_fd = outfile;
 	while (idx < vars->argc - 1)

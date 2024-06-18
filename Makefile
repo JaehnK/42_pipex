@@ -6,14 +6,14 @@
 #    By: jaehukim <jaehukim42@student.42gyeong      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 20:20:49 by jaehukim          #+#    #+#              #
-#    Updated: 2024/06/18 10:29:57 by jaehukim         ###   ########.fr        #
+#    Updated: 2024/06/18 13:59:41 by jaehukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 HEADR = ./includes/pipex.h
 CC = cc
-CFLAGS = -I./libft -Wall -Werror -Wextra 
+CFLAGS = -I./libft -Wall -Werror -Wextra -fsanitize=address -g
 
 LIB = ./libft/libft.a
 SUBDIR = ./libft

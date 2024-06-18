@@ -34,7 +34,7 @@ static char	**ft_parse_argv(int argc, char **argv)
 	char	**new_argv;
 
 	idx = 0;
-	new_argv = (char **) malloc(sizeof(char *) * argc);
+	new_argv = (char **) malloc(sizeof(char *) * (argc + 1));
 	if (!new_argv)
 		ft_error(errno, "new_argv");
 	while (idx < argc)
