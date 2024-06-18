@@ -33,7 +33,7 @@ typedef struct s_vars
 
 void	ft_error(int num, char *errm);
 t_vars	*ft_parse(int argc, char **argv, char **envp);
-void	ft_pipex(t_vars *vars);
+void	ft_pipex(t_vars *vars, int idx);
 void	ft_execute(t_vars *vars, int idx, int ifd, int ofd);
 
 #endif

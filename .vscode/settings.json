@@ -2,6 +2,7 @@
 	"files.associations": {
 		"unistd.h": "c",
 		"errno.h": "c",
-		"pipex.h": "c"
+		"pipex.h": "c",
+		"bonus_pipex.h": "c"
 	}
 }

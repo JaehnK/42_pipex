@@ -40,14 +40,12 @@ static int	ft_create_child(t_vars *vars, int idx, int prev_fd)
 	return (prev_fd);
 }
 
-void	ft_pipex(t_vars *vars)
+void	ft_pipex(t_vars *vars, int idx)
 {
-	int		idx;
 	int		prev_fd;
 	int		infile;
 	int		outfile;
 
-	idx = 2;
 	prev_fd = -1;
 	infile = open(vars->argv[1], O_RDONLY);
 	outfile = open(vars->argv[vars->argc - 1], \

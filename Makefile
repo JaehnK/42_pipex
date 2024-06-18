@@ -6,14 +6,14 @@
 #    By: jaehukim <jaehukim42@student.42gyeong      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 20:20:49 by jaehukim          #+#    #+#              #
-#    Updated: 2024/06/12 20:45:36 by jaehukim         ###   ########.fr        #
+#    Updated: 2024/06/18 10:29:57 by jaehukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-HEADR = pipex.h
+HEADR = ./includes/pipex.h
 CC = cc
-CFLAGS = -I./libft -g 
+CFLAGS = -I./libft -Wall -Werror -Wextra 
 
 LIB = ./libft/libft.a
 SUBDIR = ./libft
@@ -26,26 +26,28 @@ SRCS =	px_main.c \
 		px_pipe.c \
 		px_exe.c
 
+SRCS_BONUS = px_bonus_main.c \
+			 px_bonus_parse.c \
+			 px_bonus_pipe.c \
+			 px_bonus_exe.c
+
+
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS := $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
-
-OBJS = $(SRCS:%.c=%.o)
-
-
 
 all : $(NAME)
  
 $(NAME): $(OBJS) $(LIB)
-
 	@$(CC) $(CFLAGS) $(OBJS) -L$(SUBDIR) -lft -o $(NAME)
-
 
 $(LIB):
 	@$(MAKE) -C $(SUBDIR)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADR)
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -O3 -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+bonus : 
 
 clean:
 	@$(MAKE) clean -C $(SUBDIR)
