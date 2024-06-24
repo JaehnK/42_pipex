@@ -6,14 +6,16 @@
 #    By: jaehukim <jaehukim42@student.42gyeong      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/04 20:20:49 by jaehukim          #+#    #+#              #
-#    Updated: 2024/06/18 13:59:41 by jaehukim         ###   ########.fr        #
+#    Updated: 2024/06/19 12:29:57 by jaehukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
+BONUS_NAME = pipex_bonus
 HEADR = ./includes/pipex.h
+HEADR_BONUS = ./includes/pipex_bonus.h
 CC = cc
-CFLAGS = -I./libft -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -I./libft -Wall -Werror -Wextra -fsanitize=address -g -static-libsan
 
 LIB = ./libft/libft.a
 SUBDIR = ./libft
@@ -35,7 +37,10 @@ SRCS_BONUS = px_bonus_main.c \
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS := $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
-all : $(NAME)
+SRCS_BONUS := $(addprefix $(SRCS_DIR)/, $(SRCS_BONUS))
+OBJS_BONUS := $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS_BONUS:.c=.o)))
+
+all: $(NAME)
  
 $(NAME): $(OBJS) $(LIB)
 	@$(CC) $(CFLAGS) $(OBJS) -L$(SUBDIR) -lft -o $(NAME)
@@ -47,7 +52,14 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADR)
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-bonus : 
+bonus: $(BONUS_NAME) $(NAME)
+
+$(BONUS_NAME): $(OBJS_BONUS) $(LIB)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) -L$(SUBDIR) -lft -o $(BONUS_NAME)
+
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADR_BONUS)
+	@mkdir -p $(OBJS_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@$(MAKE) clean -C $(SUBDIR)
@@ -55,7 +67,7 @@ clean:
 
 fclean: clean
 	@$(MAKE) fclean -C $(SUBDIR)
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(BONUS_NAME)
 		
 re: fclean all
 

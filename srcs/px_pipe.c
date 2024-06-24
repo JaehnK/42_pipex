@@ -52,6 +52,8 @@ void	ft_pipex(t_vars *vars)
 	infile = open(vars->argv[1], O_RDONLY);
 	outfile = open(vars->argv[vars->argc - 1], \
 		O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (infile < 0)
+		infile = open("/dev/null", O_RDONLY);
 	if (outfile < 0)
 		ft_error(errno, "Check Outfile");
 	vars->infile_fd = infile;

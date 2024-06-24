@@ -18,34 +18,58 @@ void	ft_error(int num, char *errm)
 	exit(EXIT_FAILURE);
 }
 
+void	ft_heredoc_gnl(t_vars *vars, int fd[2])
+{
+	char	*line;
+
+	close(fd[0]);
+	while (1)
+	{
+		line = get_next_line(STDIN_FILENO);
+		if (ft_strncmp(line, vars->argv[2], ft_strlen(vars->argv[2])) == 0 \
+			&& line[ft_strlen(vars->argv[2])] == '\n')
+			break ;
+		if (ft_strncmp(line, "EOF\n", 4) == 0)
+			break ;
+		write(fd[1], line, ft_strlen(line));
+		free(line);
+	}
+	free(line);
+	close(fd[1]);
+}
+
 void	ft_heredoc(t_vars *vars)
 {
 	pid_t	pid;
 	int		fd[2];
-	char	*line;
-	char	*limiter;
+	int		status;
 
+	if (pipe(fd) < 0)
+		ft_error(errno, "pipe");
 	pid = fork();
-	pipe(fd[2]);
-	limiter = ft_strjoin(vars->argv[3], "\n");
-	line = get_next_line(1);
-	close(fd[0]);
-	while (ft_strncmp(line, limiter, ft_strlen(line)))
+	if (pid < 0)
+		ft_error(errno, "Fork Failed");
+	if (pid == 0)
 	{
-		write(fd[1], line, ft_strlen(line));
-		free(line);
-		line = get_next_line(1);
+		ft_heredoc_gnl(vars, fd);
+		exit(EXIT_SUCCESS);
 	}
-	close(fd[1]);
+	else
+	{
+		waitpid(pid, &status, 0);
+		close(fd[1]);
+		vars->infile_fd = fd[0];
+	}
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_vars	*vars;
 
 	vars = ft_parse(argc, argv, envp);
-	if (argc > 5)
+	if (argc >= 5)
 	{
-		if (ft_strncmp(argv[2], "here_doc", ft_strlen(argv[2])) == 0)
+		if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[2])) == 0)
 		{
 			ft_heredoc(vars);
 			ft_pipex(vars, 3);

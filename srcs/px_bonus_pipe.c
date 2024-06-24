@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/18 10:39:31 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 static int	ft_create_child(t_vars *vars, int idx, int prev_fd)
 {
@@ -43,21 +43,26 @@ static int	ft_create_child(t_vars *vars, int idx, int prev_fd)
 void	ft_pipex(t_vars *vars, int idx)
 {
 	int		prev_fd;
-	int		infile;
-	int		outfile;
 
 	prev_fd = -1;
-	infile = open(vars->argv[1], O_RDONLY);
-	outfile = open(vars->argv[vars->argc - 1], \
+	if (idx == 2)
+	{
+		vars->infile_fd = open(vars->argv[1], O_RDONLY);
+		if (vars->infile_fd < 0)
+			vars->infile_fd = open("/dev/null", O_RDONLY);
+	}
+	else
+		prev_fd = vars->infile_fd;
+	vars->outfile_fd = open(vars->argv[vars->argc - 1], \
 		O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (infile < 0 || outfile < 0)
-		ft_error(errno, "Check Infile or Outfile");
-	vars->infile_fd = infile;
-	vars->outfile_fd = outfile;
+	if (vars->outfile_fd < 0)
+		ft_error(errno, "Check Outfile");
+	if (idx == 3)
+		prev_fd = vars->infile_fd;
 	while (idx < vars->argc - 1)
 		prev_fd = ft_create_child(vars, idx++, prev_fd);
-	close(infile);
-	close(outfile);
-	while (wait(NULL) > 0)
-		;
+	close(vars->infile_fd);
+	close(vars->outfile_fd);
+	while (idx-- > 1)
+		wait(NULL);
 }

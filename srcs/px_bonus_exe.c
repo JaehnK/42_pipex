@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/18 10:36:14 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include  "../includes/pipex.h"
+#include  "../includes/pipex_bonus.h"
 
 static char	*ft_make_cmd(char *s1, char *s2)
 {

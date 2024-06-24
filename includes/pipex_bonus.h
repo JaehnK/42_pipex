@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX__BONUSH
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
