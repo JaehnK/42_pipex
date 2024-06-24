@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaehukim <jaehukim42@student.42gyeong      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:41:57 by jaehukim          #+#    #+#             */
-/*   Updated: 2024/06/18 10:55:46 by jaehukim         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:33:00 by jaehukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
-# define PIPEX__BONUSH
+# define PIPEX_BONUS_H
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
